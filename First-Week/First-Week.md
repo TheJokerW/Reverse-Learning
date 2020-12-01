@@ -1,5 +1,5 @@
 ##  搭建Windows 10下的QT开发环境
-    缘由：逆向的方向是 "windows下基于Qt的应用程序"
+    缘由：逆向的应用的开发方向是 "windows下基于C++/Qt的应用程序"
 版本：Qt 5.12.10 /Qt Creator 4.9 
 
 ## 《逆向工程核心原理》和IDA Pro 7.0
@@ -7,4 +7,38 @@
 
 ## 这周目标：
 1.尝试跟随书籍第1、2、3章内容简单将简单的窗口打印Hello World！的程序逆向更改为打印Hello Joker！书上的例子只是简单的windows的api ，qt也只是上层封装，所以大致思路应该是一致的。
+
+2.熟悉常见的intel的指令集。如：IA-32（书中的第四章进行了相关的讲解）
+
+
+
+## 目标一的实现
+步骤1：先正向开发一个使用消息框打印HelloWorld的程序
+具体代码如下（具体项目代码见./TestApplication）：
+
+```c++
+#include "dialog.h"
+
+Dialog::Dialog(QWidget *parent)
+    : QDialog(parent)
+{
+    msgLable=new QLabel(this);
+
+    showMessage("Hello World!");
+}
+
+Dialog::~Dialog()
+{
+
+}
+
+void Dialog::showMessage(QString msg)
+{
+    if(msgLable!=nullptr)
+    {
+        msgLable->setText(msg);
+        msgLable->show();
+    }
+}
+```
 
